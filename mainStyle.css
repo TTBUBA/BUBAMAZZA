@@ -1,0 +1,283 @@
+/* =============================================
+   BASE & RESET
+   ============================================= */
+:root {
+  --song-img-size:  clamp(100px, 18vw, 250px);
+  --capy-size:      clamp(90px,  14vw, 200px);
+  --copple-size:    clamp(100px, 15vw, 220px);
+  --title-size:     clamp(1.4rem, 5vw, 3rem);
+  --text-size:      clamp(0.75rem, 1.8vw, 1rem);
+}
+
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Inconsolata, monospace;
+  overflow-x: hidden;
+}
+
+/* =============================================
+   CONTAINER  —  always at least full viewport
+   ============================================= */
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;        /* svh = small viewport height (handles mobile bars) */
+  padding-bottom: 60px;      /* space for the audio bar */
+  box-sizing: border-box;
+}
+
+/* =============================================
+   TITLE
+   ============================================= */
+.title {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--title-size);
+  white-space: nowrap;
+  margin: 0;
+  z-index: 20;
+  letter-spacing: 0.05em;
+}
+
+/* =============================================
+   SPINNING SONG IMAGE
+   ============================================= */
+.song-img {
+  position: absolute;
+  top: clamp(10px, 2vh, 20px);
+  right: clamp(8px, 2vw, 20px);
+  width: var(--song-img-size);
+  animation: spin 5s linear infinite;
+  z-index: 10;
+}
+
+.audio{
+  visibility: hidden;
+}
+/* =============================================
+   TEXT BOX  —  centred, never hidden by images
+   ============================================= */
+.text-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: min(500px, 55vw);   /* fluid width that shrinks on narrow screens */
+  font-size: var(--text-size);
+  line-height: 1.65;
+  z-index: 15;
+  /* subtle backdrop so text is readable over images */
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 60%, transparent 100%);
+  padding: clamp(8px, 2vw, 20px);
+  border-radius: 8px;
+}
+
+.text-box p {
+  margin: 0.35em 0;
+}
+
+/* =============================================
+   CAPYBARAS
+   ============================================= */
+.capybara {
+  position: absolute;
+  width: var(--capy-size);
+}
+
+.capy1 {
+  top: 72%;
+  left: 18%;
+  transform: rotate(-10deg);
+}
+
+.capy2 {
+  top: 68%;
+  right: 6%;
+  transform: rotate(15deg);
+}
+
+/* =============================================
+   COPPLE
+   ============================================= */
+.copple {
+  position: absolute;
+  top: 38%;
+  left: 4%;
+  width: var(--copple-size);
+  transform: rotate(5deg);
+}
+
+/* =============================================
+   AUDIO PLAYER
+   ============================================= */
+.audio {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(320px, 88vw);
+  z-index: 20;
+}
+
+/* =============================================
+   SPIN ANIMATION
+   ============================================= */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* =============================================
+   TABLET  (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+
+  .container {
+    min-height: 100svh;
+  }
+
+  /* Shift text slightly right to avoid copple overlap */
+  .text-box {
+    left: 56%;
+    width: min(440px, 52vw);
+  }
+
+  .copple {
+    top: 33%;
+    left: 2%;
+  }
+
+  .capy1 {
+    top: 76%;
+    left: 10%;
+  }
+
+  .capy2 {
+    top: 70%;
+    right: 4%;
+  }
+}
+
+/* =============================================
+   MOBILE  (≤ 520px)
+   ============================================= */
+@media (max-width: 520px) {
+
+  /* Give the container more room so nothing gets cut */
+  .container {
+    min-height: 100svh;
+    padding-bottom: 70px;
+  }
+
+  /* Title: bigger, sticks to top */
+  .title {
+    top: 8px;
+    font-size: clamp(1.6rem, 9vw, 2.2rem);
+  }
+
+  /* Song image: smaller, tucked in corner */
+  .song-img {
+    top: 8px;
+    right: 6px;
+    width: clamp(70px, 22vw, 110px);
+  }
+
+  /* Text box: centred, wider, no backdrop offset */
+  .text-box {
+    top: 42%;
+    left: 50%;
+    width: min(320px, 80vw);
+    font-size: clamp(0.72rem, 3.5vw, 0.9rem);
+  }
+
+  /* Copple: small, left edge, above capybaras */
+  .copple {
+    top: 24%;
+    left: 1%;
+    width: clamp(80px, 26vw, 120px);
+  }
+
+  /* Capybaras: both along the bottom */
+  .capybara {
+    width: clamp(70px, 21vw, 110px);
+  }
+
+  .capy1 {
+    top: 76%;
+    left: 4%;
+    transform: rotate(-8deg);
+  }
+
+  .capy2 {
+    top: 78%;
+    right: 3%;
+    transform: rotate(12deg);
+  }
+
+  /* Audio: always reachable */
+  .audio {
+    bottom: 10px;
+    width: min(280px, 92vw);
+  }
+}
+
+/* =============================================
+   VERY SMALL  (≤ 360px  — e.g. SE / Galaxy A)
+   ============================================= */
+@media (max-width: 360px) {
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .text-box {
+    top: 40%;
+    width: 82vw;
+    font-size: 0.68rem;
+  }
+
+  .copple {
+    top: 20%;
+    width: 23vw;
+  }
+
+  .capybara {
+    width: 19vw;
+  }
+
+  .capy1 { top: 78%; left: 2%; }
+  .capy2 { top: 80%; right: 2%; }
+}
+
+/* =============================================
+   LANDSCAPE MOBILE  (short + wide screens)
+   ============================================= */
+@media (max-height: 500px) and (orientation: landscape) {
+
+  .container {
+    min-height: 100svh;
+    padding-bottom: 52px;
+  }
+
+  .text-box {
+    top: 50%;
+    left: 50%;
+    width: min(380px, 48vw);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .song-img  { width: clamp(60px, 12vh, 100px); }
+
+  .capy1     { top: 60%; left: 6%;   }
+  .capy2     { top: 55%; right: 4%;  }
+
+  .copple    { top: 28%; left: 2%; width: clamp(70px, 14vh, 110px); }
+
+  .audio     { bottom: 6px; width: min(260px, 44vw); }
+}
