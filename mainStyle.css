@@ -55,9 +55,13 @@ body {
   z-index: 10;
 }
 
+/* 
 .audio{
   visibility: hidden;
 }
+*/
+
+
 /* =============================================
    TEXT BOX  —  centred, never hidden by images
    ============================================= */
